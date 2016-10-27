@@ -16,6 +16,7 @@ public class Move : MonoBehaviour {
 	private float horMove = 0;
 	private float verMove = 0;
 	private bool isMoving = false;
+	private bool isTrigger = false;
 
 	private Vector3 startPos;
 	private Vector3 targetPos;
@@ -27,12 +28,19 @@ public class Move : MonoBehaviour {
 		animator = GetComponent<Animator> ();
 	}
 
+	void OnTriggerEnter(Collider otherObject){
+		Debug.Log ("trigger");
+		isTrigger = true;
+	}
+//	void OnTriggerExit(Collider otherObject){
+//		isTrigger = false;
+//	}
 	// Update is called once per frame
 	void Update () {
 		int rotateAngle = 0;
 		if (isMoving) {
 			float friction = (Time.time - startTime) * speed / step;
-			print (transform.position.ToString () + " " + targetPos.ToString () + " " + friction);
+//			print (transform.position.ToString () + " " + targetPos.ToString () + " " + friction);
 
 			if (friction >= 0.9f) {
 				transform.position = Vector3.Lerp (startPos, targetPos, 1);
@@ -52,12 +60,12 @@ public class Move : MonoBehaviour {
 		}
 
 
-		if (Input.GetKeyUp (KeyCode.A) && isMoving == false) {
+		if (Input.GetKeyUp (KeyCode.A) && isMoving == false && !isTrigger) {
 			horMove = -1.0f;
 			rotateAngle = (0 - direct) * 90;
 			direct = 0;
-
 			transform.Rotate (Vector3.up * rotateAngle);
+
 			startTime = Time.time;
 			isMoving = true;
 			startPos = transform.position;
@@ -65,7 +73,7 @@ public class Move : MonoBehaviour {
 			animator.SetBool ("Running", true);
 
 		}
-		if (Input.GetKeyUp (KeyCode.D) && isMoving == false) {
+		if (Input.GetKeyUp (KeyCode.D) && isMoving == false && !isTrigger) {
 			horMove = 1.0f;
 			rotateAngle = (2 - direct) * 90;
 			direct = 2;
@@ -78,7 +86,7 @@ public class Move : MonoBehaviour {
 			animator.SetBool ("Running", true);
 
 		}
-		if (Input.GetKeyUp (KeyCode.W) && isMoving == false) {
+		if (Input.GetKeyUp (KeyCode.W) && isMoving == false && !isTrigger) {
 			verMove = 1.0f;
 			rotateAngle = (1 - direct) * 90;
 			direct = 1;
@@ -91,7 +99,7 @@ public class Move : MonoBehaviour {
 			animator.SetBool ("Running", true);
 
 		}
-		if (Input.GetKeyUp (KeyCode.S) && isMoving == false) {
+		if (Input.GetKeyUp (KeyCode.S) && isMoving == false && !isTrigger) {
 			verMove = -1.0f;
 			rotateAngle = (3 - direct) * 90;
 			direct = 3;
