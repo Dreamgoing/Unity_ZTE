@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//Move script
+
 public class Move : MonoBehaviour {
 
 	public float time = 0.5f;    //seconds per step
