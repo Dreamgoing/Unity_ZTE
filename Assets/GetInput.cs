@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+//合作代码提交
 public class GetInput : MonoBehaviour {
 	Robert robert;
 	// Use this for initialization
