@@ -1,8 +1,11 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Move.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Robert.cs">
     <Files>
-      <File FileName="Assets/Scripts/Move.cs" Line="37" Column="5" />
+      <File FileName="Assets/Scripts/Move.cs" Line="76" Column="24" />
+      <File FileName="Assets/Robert.cs" Line="106" Column="5" />
+      <File FileName="Assets/GetInput.cs" Line="9" Column="24" />
+      <File FileName="Assets/Switch.cs" Line="55" Column="5" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

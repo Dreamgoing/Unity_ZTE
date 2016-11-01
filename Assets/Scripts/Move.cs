@@ -8,7 +8,7 @@ public class Move : MonoBehaviour {
 	public float step = 0.25f;
 
 	private Animator animator;
-
+	private Rigidbody rigid;
 	private float speed = 0; // distance per second
 	private float startTime = 0;
 
@@ -22,21 +22,71 @@ public class Move : MonoBehaviour {
 	private Vector3 targetPos;
 
 	void Start () {
+		rigid = GetComponent<Rigidbody> ();
 		targetPos = transform.position;
 		startPos = transform.position;
 		speed = (float)step / time;
 		animator = GetComponent<Animator> ();
+		rigid.constraints = RigidbodyConstraints.FreezeRotation;
+
 	}
 
-	void OnTriggerEnter(Collider otherObject){
-		Debug.Log ("trigger");
-		isTrigger = true;
+//	void OnTriggerEnter(Collision otherObject){
+//		Debug.Log ("trigger");
+//		isTrigger = true;
+//	}
+	void OnCollisionEnter(Collision other){
+		Debug.Log ("collider");
+		isMoving = false;
 	}
 //	void OnTriggerExit(Collider otherObject){
 //		isTrigger = false;
 //	}
 	// Update is called once per frame
-	void Update () {
+	void Update(){
+		if (Input.GetKeyUp (KeyCode.A) && !isMoving) {
+			Debug.Log ("click");
+			rigid.velocity = new Vector3 (-50f, 0, 0);
+			isMoving = true;
+			StartCoroutine (MoveWait ());
+		}
+		if (Input.GetKeyUp (KeyCode.D) && !isMoving) {
+			Debug.Log ("click");
+			rigid.velocity = new Vector3 (50f, 0, 0);
+			isMoving = true;
+			StartCoroutine (MoveWait ());
+		}
+		if (Input.GetKeyUp (KeyCode.W) && !isMoving) {
+			Debug.Log ("click");
+			rigid.velocity = new Vector3 (0, 0, 50f);
+			isMoving = true;
+			StartCoroutine (MoveWait ());
+		}
+		if (Input.GetKeyUp (KeyCode.S) && !isMoving) {
+			Debug.Log ("click");
+			rigid.velocity = new Vector3 (0f, 0, -50f);
+			isMoving = true;
+			StartCoroutine (MoveWait ());
+		}
+		if (!isMoving) {
+			rigid.velocity = new Vector3 (0, 0, 0);
+		}
+	}
+	IEnumerator MoveWait(){
+		float length = 23.0f;
+		float covered = 0;
+		for(;length-covered>0.1f;covered+=Time.deltaTime*50){
+			yield return null;
+		}
+
+		//yield return new WaitForSeconds (0.480f);
+		isMoving = false;
+	}
+
+
+
+
+	void Update_1 () {
 		int rotateAngle = 0;
 		if (isMoving) {
 			float friction = (Time.time - startTime) * speed / step;
